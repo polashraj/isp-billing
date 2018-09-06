@@ -1,0 +1,41 @@
+Step1: Import the isp-billing QCow2 Disk image (vda-100G-isp-billing-ubuntu-16.04.qcow2) into kvm.
+
+Step2: Logged in to the isp-billing system using system users password and change IP address if required.
+See the  password file for passwords and IP address file for IP address information.
+
+step3: Set DNS IP in MikroTik
+Example: >/ip dns set servers=8.8.8.8,8.8.4.4
+
+step4: Set Local address for default PPP profile
+Example: >/ ppp profile set default local-address=10.0.0.1
+
+step5: Set default profile for one session per user
+Example: >/ppp profile set only-one=yes default
+
+step6: Set ip pool for Hold Users
+Example: >/ip pool
+add name=hold-ip-pool ranges=192.168.64.201-192.168.79.254
+Note: Network=192.168.64.0/20
+
+step7: Set Radius client
+Example: >/radius
+add accounting-port=3613 address=10.10.10.3 authentication-port=3612 secret=secret service=ppp src-address=10.10.10.1
+
+step8: set AAA
+>/ppp aaa
+set interim-update=1m use-radius=yes
+
+Step9: Login to billing application using the application password. See password file for passwords.
+
+step10: Add subnets in billing software according to package.
+
+step11: Add packages.
+
+step12: Configure other settings like "billing profile", "other service" etc.
+
+step13: Import users from mikrotik. (user Management sections)
+
+
+Need professional help?
+Talk to us: sohag1426@gmail.com
+Visit: https://softisp.weebly.com/
